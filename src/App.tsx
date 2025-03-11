@@ -1,9 +1,10 @@
 import React from 'react';
+import EditPage from './pages/Edit';
 
 function App() {
   return (
     <div className="App">
-      <h1>66666666666</h1>
+      <EditPage />
     </div>
   );
 }
