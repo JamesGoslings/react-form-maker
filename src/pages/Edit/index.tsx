@@ -1,13 +1,11 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import styles from "./index.module.scss";
 import EditCanvas from "./EditCanvas";
-import axios from "axios";
+import useLoadFormData from "../../hooks/useLoadFormData";
 
 
 const Edit: FC = function () {
-  useEffect(()=>{
-    axios.get("/api/test").then(data => console.log(data))
-  }, [])
+  const { loading } = useLoadFormData()
   return (
     <div className={styles["edit-container"]}>
       <header className={styles.header}>Edit</header>
@@ -16,7 +14,7 @@ const Edit: FC = function () {
           <div className={styles.left}>Left</div>
           <main className={styles.main}>
             <div className={styles["canvas-wrapper"]}>
-              <EditCanvas />
+              <EditCanvas loading={loading} />
             </div>
           </main>
           <div className={styles.right}>Right</div>

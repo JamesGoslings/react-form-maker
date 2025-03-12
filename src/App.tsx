@@ -1,10 +1,14 @@
-import React from 'react';
-import EditPage from './pages/Edit';
+import React from "react";
+import EditPage from "./pages/Edit";
+import { Provider } from "react-redux";
+import store from "./store";
 
 function App() {
   return (
     <div className="App">
-      <EditPage />
+      <Provider store={store}>
+        <EditPage />
+      </Provider>
     </div>
   );
 }
