@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-const MainLayout: FC = function () {
+const ManageLayout: FC = function () {
   return (
     <>
-      <div>MainLayout-Header</div>
+      <div>ManageLayout-Header</div>
       <Outlet />
     </>
   )
 }
-export default MainLayout
+export default ManageLayout
