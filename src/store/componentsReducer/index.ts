@@ -1,18 +1,18 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ComponentPropsType } from "../../components/innerComponents";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ComponentPropsType } from '../../components/innerComponents'
 
 export type ComponentInfoType = {
-  fe_id: string;
-  type: string;
-  props: ComponentPropsType;
+  fe_id: string
+  type: string
+  props: ComponentPropsType
 }
 
 export type ComponentsStateType = {
-  componentList: ComponentInfoType[];
+  componentList: ComponentInfoType[]
 }
 
 const INIT_STATE: ComponentsStateType = {
-  componentList: []
+  componentList: [],
   // 其他拓展
 }
 
@@ -24,7 +24,7 @@ export const componentsSlice = createSlice({
     resetComponents(state: ComponentsStateType, action: PayloadAction<ComponentsStateType>) {
       return action.payload
     },
-  }
+  },
 })
 
 export const { resetComponents } = componentsSlice.actions

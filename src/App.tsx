@@ -1,7 +1,7 @@
-import React from "react";
-import EditPage from "./pages/Edit";
-import { Provider } from "react-redux";
-import store from "./store";
+import React from 'react'
+import EditPage from './pages/Edit'
+import { Provider } from 'react-redux'
+import store from './store'
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <EditPage />
       </Provider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

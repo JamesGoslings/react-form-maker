@@ -1,10 +1,10 @@
-import React, { FC } from "react";
-import { Typography, Input } from "antd";
-import { InputPropsType, inputDefaultProps } from "./type";
+import React, { FC } from 'react'
+import { Typography, Input } from 'antd'
+import { InputPropsType, inputDefaultProps } from './type'
 
-const { Paragraph } = Typography;
+const { Paragraph } = Typography
 const InnerInput: FC<InputPropsType> = function (props) {
-  const { title, placeholder } = { ...inputDefaultProps, ...props };
+  const { title, placeholder } = { ...inputDefaultProps, ...props }
   return (
     <div>
       <Paragraph strong>{title}</Paragraph>
@@ -12,7 +12,7 @@ const InnerInput: FC<InputPropsType> = function (props) {
         <Input placeholder={placeholder}></Input>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default InnerInput;
+export default InnerInput

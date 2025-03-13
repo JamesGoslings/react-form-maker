@@ -3,10 +3,10 @@ import axios from 'axios'
 /**
  * 封装axios
  */
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true
 
 const request = axios.create({
-  baseURL: ''
+  baseURL: '',
 })
 
 // 添加请求拦截
