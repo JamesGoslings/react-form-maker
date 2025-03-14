@@ -1,0 +1,16 @@
+{
+  "id": "4858330",
+  "name": "react-form-maker",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "25013957",
+      "name": "展开",
+      "font_class": "zhankai",
+      "unicode": "e6cc",
+      "unicode_decimal": 59084
+    }
+  ]
+}
