@@ -5,8 +5,9 @@
   @include flexUtil.flex-between;
   width: 100%;
   position: fixed;
+  top: 0;
   box-sizing: border-box;
-  padding: 10px common.$page-gap;
+  padding: 0.1rem common.$page-gap;
   height: common.$page-header-height;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.12), 0px 1px 0px 0px rgba(232, 232, 232, 1);
@@ -14,8 +15,8 @@
   .logo-wrapper {
     @include flexUtil.flex-around;
     .logo{
-      width: 35px;
-      margin-right: 8px;
+      width: 0.35rem;
+      margin-right: 0.08rem;
     }
     .logo-text{
       letter-spacing: 1px;
@@ -27,10 +28,10 @@
     @include flexUtil.flex-center-y;
     .nav-wrapper{
       @include flexUtil.flex-center-y;
-      margin-right: 20px;
+      margin-right: 0.2rem;
       .item , .ico-item{
         cursor: pointer;
-        margin: 0 15px;
+        margin: 0 0.15rem;
       }
       .item{
         text-align: center;
@@ -39,7 +40,7 @@
         }
         .text{
           font-size: 14px;
-          margin-left: 5px;
+          margin-left: 0.05rem;
         }
       }
       .ico-item, .item .text{
@@ -57,20 +58,20 @@
       @include flexUtil.flex-center-y;
       cursor: pointer;
       background: #f0f0f0;
-      padding: 5px 6px;
+      padding: 0.05rem 0.06rem;
       border-radius: 100px;
       color: #603b3b;
       position: relative;
       .avatar{
-        height: 32px;
+        height: 0.32rem;
       }
       .username{
-        margin: 0 9px;
+        margin: 0 0.09rem;
         font-size: 14px;
       }
       .ico{
         font-size: 16px;
-        margin-right: 5px;
+        margin-right: 0.05rem;
       }
     }
     .user-menu-wrapper{

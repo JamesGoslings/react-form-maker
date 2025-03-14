@@ -5,6 +5,7 @@ import store from './store'
 import { RouterProvider } from 'react-router-dom'
 import router from './router'
 import '@/assets/font/iconfont.css'
+import '@/styles/global.scss'
 
 function App() {
   return (
