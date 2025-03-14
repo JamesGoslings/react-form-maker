@@ -1,0 +1,21 @@
+.container{
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #FFF;
+  box-sizing: border-box;
+  padding: 5px 0;
+  border: 1px solid #eae5e5;
+  .item-wrapper{
+    cursor: pointer;
+    padding: 8px 10px;
+    .ico{
+      color: #999;
+      margin-right: 7px;
+    }
+    &:hover{
+      background-color: #f0f0f0;
+    }
+  }
+}

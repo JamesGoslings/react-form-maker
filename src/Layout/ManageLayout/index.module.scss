@@ -1,0 +1,8 @@
+@use "@/styles/common/static.scss" as common;
+
+.manage-container{
+  background-color: rgb(245,245,245);
+  padding-top: common.$page-header-height;
+  box-sizing: border-box;
+  min-height: 100vh;
+}

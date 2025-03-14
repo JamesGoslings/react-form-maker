@@ -1,0 +1,83 @@
+@use "@/styles/common/static.scss" as common;
+@use "@/styles/common/flex.scss" as flexUtil;
+
+.header {
+  @include flexUtil.flex-between;
+  width: 100%;
+  position: fixed;
+  box-sizing: border-box;
+  padding: 10px common.$page-gap;
+  height: common.$page-header-height;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.12), 0px 1px 0px 0px rgba(232, 232, 232, 1);
+  user-select: none;
+  .logo-wrapper {
+    @include flexUtil.flex-around;
+    .logo{
+      width: 35px;
+      margin-right: 8px;
+    }
+    .logo-text{
+      letter-spacing: 1px;
+      font-size: 18px;
+      color: rgb(40,40,40);
+    }
+  }
+  .nav-container{
+    @include flexUtil.flex-center-y;
+    .nav-wrapper{
+      @include flexUtil.flex-center-y;
+      margin-right: 20px;
+      .item , .ico-item{
+        cursor: pointer;
+        margin: 0 15px;
+      }
+      .item{
+        text-align: center;
+        .ico{
+          color: #0085ff;
+        }
+        .text{
+          font-size: 14px;
+          margin-left: 5px;
+        }
+      }
+      .ico-item, .item .text{
+        color: #999;
+        &:hover{
+          color: #0085ff;
+        }
+      }
+      .item .ico, .ico-item{
+        font-size: 20px;
+        text-decoration: none;
+      }
+    }
+    .user-wrapper{
+      @include flexUtil.flex-center-y;
+      cursor: pointer;
+      background: #f0f0f0;
+      padding: 5px 6px;
+      border-radius: 100px;
+      color: #603b3b;
+      position: relative;
+      .avatar{
+        height: 32px;
+      }
+      .username{
+        margin: 0 9px;
+        font-size: 14px;
+      }
+      .ico{
+        font-size: 16px;
+        margin-right: 5px;
+      }
+    }
+    .user-menu-wrapper{
+      display: none;
+    }
+    .user-wrapper:hover .user-menu-wrapper{
+      display: block;
+    }
+  }
+}
