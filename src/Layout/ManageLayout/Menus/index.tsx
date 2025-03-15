@@ -19,11 +19,7 @@ const Menus: FC = function () {
       path: '/manage/recycle',
     },
   ]
-  const goToPage = (path: string) => {
-    console.log(path)
 
-    navigate(path)
-  }
   return (
     <div className={styles.container}>
       <Button
@@ -31,7 +27,7 @@ const Menus: FC = function () {
         type="primary"
         size="large"
         className={styles.btn}
-        onClick={() => goToPage('/edit')}
+        onClick={() => navigate('/edit')}
       >
         <span className={styles['btn-content']}>
           <i className={`iconfont icon-add ${styles.ico}`} />
@@ -45,7 +41,7 @@ const Menus: FC = function () {
             <div
               className={`${styles.item} ${currentPath === path ? styles.active : ''}`}
               key={path}
-              onClick={() => goToPage(path)}
+              onClick={() => navigate(path)}
             >
               {name}
             </div>
