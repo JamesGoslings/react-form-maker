@@ -6,8 +6,10 @@ import Menus from './Menus'
 const ManageLayout: FC = function () {
   return (
     <div className={styles['manage-container']}>
-      <Menus />
-      <Outlet />
+      <div className={styles['wrapper']}>
+        <Menus />
+        <Outlet />
+      </div>
     </div>
   )
 }

@@ -1,10 +1,14 @@
 @use "@/styles/common/static.scss" as common;
+@use "@/styles/common/flex" as flexUtil;
 
 .manage-container{
   background-color: rgb(245,245,245);
   padding: 0 common.$page-gap;
   padding-top: common.$page-header-height;
   box-sizing: border-box;
-  margin-top: 0.2rem;
   min-height: 100vh;
+  .wrapper{
+    margin-top: 0.2rem;
+    display: flex;
+  }
 }
