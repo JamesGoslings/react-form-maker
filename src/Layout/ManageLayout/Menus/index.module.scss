@@ -1,0 +1,54 @@
+@use "@/styles/common/static" as common;
+@use "@/styles/common/flex" as flexUtil;
+
+.container{
+  width: common.$menu-width;
+  background-color: #FFF;
+  border-radius: 8px;
+  min-height: 80vh;
+  letter-spacing: 1px;
+  margin-right: 0.5rem;
+  .btn{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative;
+    .btn-content{
+      @include flexUtil.flex-center;
+      letter-spacing: 1px;
+      position: absolute;
+      font-weight: 550;
+      z-index: 10;
+      .ico{
+        margin-right: 0.05rem;
+      }
+    }
+    &::before {
+      content: '';
+      background: linear-gradient(135deg, #6253e1, #04befe);
+      position: absolute;
+      inset: -1px;
+      opacity: 1;
+      transition: all 0.3s;
+      border-radius: inherit;
+    }
+    &:hover::before {
+      opacity: 0;
+    }
+  }
+}
+.wrapper{
+  padding: 0.1rem 0;
+  .item{
+    cursor: pointer;
+    text-align: center;
+    padding: 0.1rem 0;
+    &:hover{
+      color: #0085ff;
+    }
+  }
+  .active{
+    background-color: #3091ec17;
+    color: #0085ff;
+    font-weight: 550;
+  }
+}
