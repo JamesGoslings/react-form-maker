@@ -2,7 +2,7 @@
 @use "@/styles/common/flex" as flexUtil;
 
 .container{
-  width: common.$menu-width;
+  min-width: common.$menu-width;
   background-color: #FFF;
   border-radius: 8px;
   min-height: 80vh;

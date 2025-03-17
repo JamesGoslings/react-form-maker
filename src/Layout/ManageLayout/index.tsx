@@ -8,7 +8,9 @@ const ManageLayout: FC = function () {
     <div className={styles['manage-container']}>
       <div className={styles['wrapper']}>
         <Menus />
-        <Outlet />
+        <div style={{ width: '100%' }}>
+          <Outlet />
+        </div>
       </div>
     </div>
   )

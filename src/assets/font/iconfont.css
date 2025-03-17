@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4858330 */
-  src: url('//at.alicdn.com/t/c/font_4858330_10m3by6q1i9.woff2?t=1742008315815') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4858330_10m3by6q1i9.woff?t=1742008315815') format('woff'),
-       url('//at.alicdn.com/t/c/font_4858330_10m3by6q1i9.ttf?t=1742008315815') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_4858330_bung0qhaas.woff2?t=1742124264991') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4858330_bung0qhaas.woff?t=1742124264991') format('woff'),
+       url('//at.alicdn.com/t/c/font_4858330_bung0qhaas.ttf?t=1742124264991') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,30 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-copy:before {
+  content: "\e618";
+}
+
+.icon-star:before {
+  content: "\e8bc";
+}
+
+.icon-view:before {
+  content: "\e613";
+}
+
+.icon-edit:before {
+  content: "\e64f";
+}
+
+.icon-delete:before {
+  content: "\e7ea";
+}
+
+.icon-ipt:before {
+  content: "\e607";
 }
 
 .icon-add:before {
