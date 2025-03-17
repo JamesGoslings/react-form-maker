@@ -1,14 +1,16 @@
 import React, { FC } from 'react'
 import styles from './index.module.scss'
 import { Spin } from 'antd'
-
-import InnerInput from '../../../components/innerComponents/InnerInput/Component'
-import InnerTitle from '../../../components/innerComponents/InnerTitle/Component'
+import useGetComponentInfo from '@/hooks/useGetComponentInfo'
+import InnerInput from '@/components/innerComponents/InnerInput/Component'
+import InnerTitle from '@/components/innerComponents/InnerTitle/Component'
 
 type PropsType = {
   loading: boolean
 }
 const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
+  const { componentList } = useGetComponentInfo()
+  console.log('componentList', componentList)
   if (loading) {
     return (
       <div style={{ textAlign: 'center', marginTop: '24px' }}>

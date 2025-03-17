@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
 import { getFormData } from '../apis/form'
 import { useDispatch } from 'react-redux'
 import { resetComponents } from '../store/componentsReducer'
 
 function useLoadFormData() {
-  const { id = '1' } = useParams()
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id') ?? ''
   const dispatch = useDispatch()
 
   const { data, loading, error, run } = useRequest(
@@ -14,7 +15,7 @@ function useLoadFormData() {
       if (!id) {
         throw new Error('没有表单 id')
       }
-      const data = await getFormData(id)
+      const { data } = await getFormData(id)
       return data
     },
     {
@@ -24,13 +25,13 @@ function useLoadFormData() {
 
   useEffect(() => {
     if (!data) return
-    const { title = '', componentList = [] } = data
+    const { title = '', componentList = [] } = data.data
     dispatch(resetComponents({ componentList }))
-  }, [data])
+  }, [data, dispatch])
 
   useEffect(() => {
     run(id)
-  }, [id])
+  }, [id, run])
   return { data, loading, error }
 }
 export default useLoadFormData
