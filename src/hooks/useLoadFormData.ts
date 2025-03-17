@@ -25,8 +25,13 @@ function useLoadFormData() {
 
   useEffect(() => {
     if (!data) return
-    const { title = '', componentList = [] } = data.data
-    dispatch(resetComponents({ componentList }))
+    const { componentList = [] } = data.data
+    let selectedId = ''
+    // 默认选中第一个组件
+    if (componentList.length > 0) {
+      selectedId = componentList[0].fe_id
+    }
+    dispatch(resetComponents({ componentList, selectedId }))
   }, [data, dispatch])
 
   useEffect(() => {

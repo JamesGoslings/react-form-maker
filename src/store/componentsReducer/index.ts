@@ -8,12 +8,13 @@ export type ComponentInfoType = {
 }
 
 export type ComponentsStateType = {
+  selectedId?: string
   componentList: ComponentInfoType[]
 }
 
 const INIT_STATE: ComponentsStateType = {
+  selectedId: '',
   componentList: [],
-  // 其他拓展
 }
 
 export const componentsSlice = createSlice({
@@ -24,9 +25,13 @@ export const componentsSlice = createSlice({
     resetComponents(state: ComponentsStateType, action: PayloadAction<ComponentsStateType>) {
       return action.payload
     },
+    // 修改 当前画布选中的组件id
+    setSelectedId(state: ComponentsStateType, action: PayloadAction<string>) {
+      state.selectedId = action.payload
+    },
   },
 })
 
-export const { resetComponents } = componentsSlice.actions
+export const { resetComponents, setSelectedId } = componentsSlice.actions
 
 export default componentsSlice.reducer

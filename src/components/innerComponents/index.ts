@@ -13,8 +13,8 @@ export type ComponentConfType = {
   defaultProps: ComponentPropsType
 }
 
-const components: ComponentConfType[] = [InputConf, TitleConf]
+const componentConfs: ComponentConfType[] = [InputConf, TitleConf]
 
-export function getComponentByType(type: string) {
-  return components.find(c => c.type === type)
+export function getComponentConfByType(type: string) {
+  return componentConfs.find(c => c.type === type)
 }
