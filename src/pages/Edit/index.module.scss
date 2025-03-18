@@ -1,8 +1,11 @@
+@use "@/styles/common/flex.scss" as flexUtil;
+
 .edit-container{
   display: flex;
   flex-direction: column;
   background-color: #dcdce1;
   height: 100vh;
+  overflow: hidden;
   .header{
     height: 0.5rem;
     background-color: #FFF;
@@ -20,15 +23,11 @@
       }
       .main{
         flex: 1;
-        position: relative;
         overflow: hidden;
+        @include flexUtil.flex-center;
         .canvas-wrapper{
           width: 4rem;
           height: 7.12rem;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
           overflow: auto;
           box-shadow: 0 2px 10px #0000001f;
         }
