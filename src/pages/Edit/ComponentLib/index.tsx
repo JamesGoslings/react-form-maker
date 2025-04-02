@@ -1,17 +1,19 @@
-import React, { FC } from 'react'
+import React, { FC, DragEvent } from 'react'
 import { Typography } from 'antd'
 import { componentConfGroup, ComponentConfType } from '@/components/innerComponents'
 import styles from './index.module.scss'
 
 const { Title } = Typography
 
-function getComponentByConf(config: ComponentConfType) {
-  const { title, type, Component } = config
+function getComponentIconShowByConf(config: ComponentConfType) {
+  const { title, iconClass } = config
+  const handleDragStart = (e: DragEvent) => {
+    e.dataTransfer.effectAllowed = 'copyMove'
+  }
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.component}>
-        <Component />
-      </div>
+    <div className={styles.wrapper} draggable="true" onDragStart={e => handleDragStart(e)}>
+      <i className={`iconfont ${iconClass} ${styles.icon}`}></i>
+      <div>{title}</div>
     </div>
   )
 }
@@ -26,7 +28,9 @@ const ComponentLib: FC = function () {
             <Title level={3} style={{ fontSize: '16px', marginTop: index === 0 ? '0' : '0.2rem' }}>
               {groupName}
             </Title>
-            <div>{componentConfs.map(config => getComponentByConf(config))}</div>
+            <div className={styles.container}>
+              {componentConfs.map(config => getComponentIconShowByConf(config))}
+            </div>
           </div>
         )
       })}

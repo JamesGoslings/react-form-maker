@@ -36,7 +36,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     )
   }
   return (
-    <div className={styles.canvas}>
+    <div className={styles.canvas} onDragOver={e => e.preventDefault()}>
       {componentList.map(componentInfo => {
         const { fe_id } = componentInfo
         return (
