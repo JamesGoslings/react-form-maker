@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ComponentPropsType } from '../../components/innerComponents'
+import { ComponentPropsType } from '@/components/innerComponents'
 
 export type ComponentInfoType = {
   fe_id: string
@@ -10,6 +10,13 @@ export type ComponentInfoType = {
 export type ComponentsStateType = {
   selectedId?: string
   componentList: ComponentInfoType[]
+}
+/**
+ * 用于操作状态中的 componentList 的参数类型
+ */
+export type ComponentActionParams = {
+  index: number
+  ComponentInfo: ComponentInfoType
 }
 
 const INIT_STATE: ComponentsStateType = {
@@ -29,9 +36,14 @@ export const componentsSlice = createSlice({
     setSelectedId(state: ComponentsStateType, action: PayloadAction<string>) {
       state.selectedId = action.payload
     },
+    // 给指定下标添加一个组件info
+    addComponent(state: ComponentsStateType, action: PayloadAction<ComponentActionParams>) {
+      const { index, ComponentInfo } = action.payload
+      state.componentList.splice(index, 0, ComponentInfo)
+    },
   },
 })
 
-export const { resetComponents, setSelectedId } = componentsSlice.actions
+export const { resetComponents, setSelectedId, addComponent } = componentsSlice.actions
 
 export default componentsSlice.reducer

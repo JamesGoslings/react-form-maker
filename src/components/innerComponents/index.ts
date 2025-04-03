@@ -18,6 +18,6 @@ export const componentConfGroup = [
     componentConfs: [InputConf],
   },
 ]
-export function getComponentConfByType(type: string) {
+export function getComponentConfByType(type: string): ComponentConfType | undefined {
   return componentConfs.find(c => c.type === type)
 }
