@@ -45,21 +45,35 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     )
   }
 
-  function handleDragLeave(e: DragEvent, id: string) {
-    e.stopPropagation()
+  /**
+   * 清除占位组件
+   */
+  function clearTmpComponent() {
+    setRelativeEleId(null)
+    setPlacement(null)
+  }
+
+  /**
+   * 拖拽元素进入其他组件之后的逻辑：确定占位组件
+   * @param e
+   * @param id 进入的组件 id
+   */
+  function handleDragEnter(e: DragEvent, id: string) {
+    // e.stopPropagation()
     e.preventDefault()
 
     if (e.target instanceof HTMLElement) {
       setRelativeEleId(id)
       const rect = e.target.getBoundingClientRect()
       const dragLeaveY = e.clientY
-      if (dragLeaveY < rect.top) {
+      const centerY = rect.top + rect.height / 2
+      if (dragLeaveY < centerY) {
         setPlacement('top')
-      } else if (dragLeaveY > rect.bottom) {
+      } else {
         setPlacement('bottom')
       }
     } else {
-      setRelativeEleId(null)
+      clearTmpComponent()
     }
   }
 
@@ -74,12 +88,17 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     if (!componentConf) {
       return
     }
-    const index = componentList.findIndex(component => component.fe_id === relativeEleId)
+    let index = componentList.findIndex(component => component.fe_id === relativeEleId)
+    if (index === -1) {
+      return
+    }
+    index += placement === 'top' ? 0 : 1
     const componentInfo: ComponentInfoType = {
       fe_id: Math.random().toString(36).substring(2),
       type: dragingCompoentType,
       props: componentConf.defaultProps,
     }
+
     dispatch(
       addComponent({
         index,
@@ -87,31 +106,62 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
       })
     )
 
-    // 清除占位组件
-    setRelativeEleId(null)
-    setPlacement(null)
+    clearTmpComponent()
+  }
+
+  /**
+   * 实现离开画布之后，清除占位组件
+   * @param e
+   */
+  function handleLeave(e: DragEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    const canvasContainer = document.getElementById('canvasContainer')
+    if (canvasContainer) {
+      const relatedTarget = e.relatedTarget as HTMLElement | null
+      if (!relatedTarget || !canvasContainer.contains(relatedTarget)) {
+        clearTmpComponent()
+      }
+    }
   }
 
   return (
-    <div className={styles.canvas} onDragOver={e => e.preventDefault()}>
+    <div
+      id="canvasContainer"
+      className={styles.canvas}
+      onDragOver={e => e.preventDefault()}
+      onDrop={e => handleDrop(e)}
+      onDragLeave={e => handleLeave(e)}
+    >
       {componentList.map(componentInfo => {
         const { fe_id } = componentInfo
         return (
           <div key={fe_id}>
             {placement === 'top' && relativeEleId === fe_id && (
-              <div className={styles.placeholder}>占位组件上</div>
+              <div
+                style={{ width: '100%' }}
+                className={styles.placeholder}
+                onDragOver={e => e.preventDefault()}
+              >
+                占位组件上
+              </div>
             )}
             <div
               className={`${styles['canvas-wrapper']} ${selectedId === fe_id ? styles.selected : ''}`}
               onClick={e => handleClick(e, fe_id)}
-              onDragLeave={e => handleDragLeave(e, fe_id)}
+              onDragEnter={e => handleDragEnter(e, fe_id)}
               onDragOver={e => e.preventDefault()}
-              onDrop={e => handleDrop(e)}
             >
               <div className={styles.component}>{getComponent(componentInfo)}</div>
             </div>
             {placement === 'bottom' && relativeEleId === fe_id && (
-              <div className={styles.placeholder}>占位组件下</div>
+              <div
+                style={{ width: '100%' }}
+                className={styles.placeholder}
+                onDragOver={e => e.preventDefault()}
+              >
+                占位组件下
+              </div>
             )}
           </div>
         )
