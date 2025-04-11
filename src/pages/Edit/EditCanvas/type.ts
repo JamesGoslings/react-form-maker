@@ -5,4 +5,5 @@ export interface DisplayComponentProps {
   info: ComponentInfoType
   selectedId?: string | null
   curIndex: number
+  onChangeDraggingIndex: (newIndex: number | null) => void
 }

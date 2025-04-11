@@ -41,9 +41,22 @@ export const componentsSlice = createSlice({
       const { index, ComponentInfo } = action.payload
       state.componentList.splice(index, 0, ComponentInfo)
     },
+    // 通过索引交换两个组件的位置
+    swapComponentLocation(
+      state: ComponentsStateType,
+      action: PayloadAction<{ from: number; to: number }>
+    ) {
+      const { from, to } = action.payload
+      const list = state.componentList
+      if (from === to || from < 0 || to < 0 || from >= list.length || to >= list.length) {
+        return
+      }
+      ;[list[from], list[to]] = [list[to], list[from]]
+    },
   },
 })
 
-export const { resetComponents, setSelectedId, addComponent } = componentsSlice.actions
+export const { resetComponents, setSelectedId, addComponent, swapComponentLocation } =
+  componentsSlice.actions
 
 export default componentsSlice.reducer

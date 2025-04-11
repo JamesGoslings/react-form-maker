@@ -1,7 +1,7 @@
 import React, { FC, DragEvent } from 'react'
 import { Typography } from 'antd'
 import { componentConfGroup, ComponentConfType } from '@/components/innerComponents'
-import { setDragingCompoentType } from '@/store/dragReducer'
+import { setDraggingCompoentType, chanageDragMode, DragModeTypes } from '@/store/dragReducer'
 import { AppDispatch } from '@/store'
 import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
@@ -18,7 +18,8 @@ function getComponentIconShowByConf(config: ComponentConfType, dispatch: AppDisp
   const { title, iconClass, type } = config
   const handleDragStart = (e: DragEvent) => {
     e.dataTransfer.effectAllowed = 'copyMove'
-    dispatch(setDragingCompoentType(type))
+    dispatch(setDraggingCompoentType(type))
+    dispatch(chanageDragMode(DragModeTypes.LIBRARY))
   }
   return (
     <div

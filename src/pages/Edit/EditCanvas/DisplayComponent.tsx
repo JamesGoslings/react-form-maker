@@ -1,6 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, DragEvent } from 'react'
 import { DisplayComponentProps } from './type'
 import { ComponentInfoType } from '@/store/componentsReducer'
+import { chanageDragMode, DragModeTypes } from '@/store/dragReducer'
+import { useDispatch } from 'react-redux'
 import { getComponentConfByType } from '@/components/innerComponents'
 import styles from './DisplayComponent.module.scss'
 
@@ -19,11 +21,19 @@ function getComponentByInfo(component: ComponentInfoType) {
   return <Component {...props} />
 }
 const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComponentProps) {
-  const { info, selectedId } = props
+  const { info, selectedId, onChangeDraggingIndex: changeDraggingIndex, curIndex } = props
+  const dispatch = useDispatch()
+  function handleDragStart(e: DragEvent) {
+    e.stopPropagation()
+    e.dataTransfer.effectAllowed = 'move'
+    dispatch(chanageDragMode(DragModeTypes.CANVAS))
+    changeDraggingIndex(curIndex)
+  }
   return (
     <div
       className={`${styles['canvas-wrapper']} ${selectedId === info.fe_id ? styles.selected : ''}`}
       draggable="true"
+      onDragStart={e => handleDragStart(e)}
     >
       <div className={styles.component}>{getComponentByInfo(info)}</div>
     </div>
