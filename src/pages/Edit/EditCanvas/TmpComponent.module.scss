@@ -1,0 +1,17 @@
+@use "@/styles/common/flex.scss" as flexUtil;
+
+.placeholder{
+  @include flexUtil.flex-center;
+  max-width: 100%;
+  box-sizing: border-box;
+  background-color: rgb(245,245,245);
+  margin: 0.12rem;
+  padding: 0.12rem;
+  border: 1.5px dashed rgb(233, 116, 116);
+  font-size: 12px;
+  color: rgb(231, 77, 77);
+  i{
+    font-size: 14px;
+    margin-right: 0.05rem;
+  }
+}

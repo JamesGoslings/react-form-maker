@@ -14,6 +14,7 @@ import { getComponentConfByType } from '@/components/innerComponents'
 import { getRandomUUID } from '@/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import DisplayComponent from './DisplayComponent'
+import TmpComponent from './TmpComponent'
 
 type PropsType = {
   loading: boolean
@@ -215,15 +216,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
         const { fe_id } = componentInfo
         return (
           <div key={fe_id}>
-            {index === tmpIndex && (
-              <div
-                style={{ width: '100%' }}
-                className={styles.placeholder}
-                onDragOver={e => e.preventDefault()}
-              >
-                占位组件上
-              </div>
-            )}
+            {index === tmpIndex && <TmpComponent type={draggingCompoentType} />}
             <div
               id={index + 1 === componentList.length ? 'last' : undefined}
               onClick={e => handleClick(e, fe_id)}
@@ -241,15 +234,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
           </div>
         )
       })}
-      {componentList.length === tmpIndex && (
-        <div
-          style={{ width: '100%' }}
-          className={styles.placeholder}
-          onDragOver={e => e.preventDefault()}
-        >
-          占位组件end
-        </div>
-      )}
+      {componentList.length === tmpIndex && <TmpComponent type={draggingCompoentType} />}
     </div>
   )
 }
