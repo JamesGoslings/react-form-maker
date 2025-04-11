@@ -11,6 +11,7 @@ import {
 import { DragStateType, chanageDragMode, DragModeTypes } from '@/store/dragReducer'
 import { StateType } from '@/store'
 import { getComponentConfByType } from '@/components/innerComponents'
+import { getRandomUUID } from '@/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import DisplayComponent from './DisplayComponent'
 
@@ -104,8 +105,9 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     if (tmpIndex === null) {
       return
     }
+    const fe_id = getRandomUUID()
     const componentInfo: ComponentInfoType = {
-      fe_id: Math.random().toString(36).substring(2),
+      fe_id,
       type: draggingCompoentType,
       props: componentConf.defaultProps,
     }
@@ -115,6 +117,8 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
         ComponentInfo: componentInfo,
       })
     )
+    // 将新组件设为选中组件
+    dispatch(setSelectedId(fe_id))
   }
 
   /**
@@ -124,7 +128,6 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     if (draggingIndex === null || beDraggedIndex === null) {
       return
     }
-    console.log('拖拽的是画布中组件 to:', beDraggedIndex)
     dispatch(
       swapComponentLocation({
         from: draggingIndex,
@@ -138,8 +141,6 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
   function handleDrop(e: DragEvent) {
     e.stopPropagation()
     e.preventDefault()
-    console.log('tmpIndex', tmpIndex)
-
     if (!dragMode) {
       return
     }
@@ -154,6 +155,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     // 清除拖拽模式设置
     dispatch(chanageDragMode(null))
     clearTmpComponent()
+    setBeDraggedIndex(null)
   }
 
   /**
@@ -181,6 +183,9 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
    */
   function handleEnterContainer(e: DragEvent) {
     e.preventDefault()
+    if (dragMode !== DragModeTypes.LIBRARY) {
+      return
+    }
     const canvasContainer = document.getElementById('canvasContainer')
     if (!canvasContainer) {
       return

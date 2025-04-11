@@ -1,15 +1,52 @@
+@use "@/styles/common/flex.scss" as flexUtil;
+
+
+$canvas-wrapper-border-size: 1.35px;
 .canvas-wrapper{
   margin: 0.12rem;
   // border: 1px solid #FFF;
-  border: 1px dashed #ccc;
+  border: $canvas-wrapper-border-size dashed #ccc;
   padding: 0.12rem;
+  box-sizing: border-box;
+  position: relative;
   &:hover{
-    border: 1px solid #188fff82;
+    border: $canvas-wrapper-border-size solid #188fff82;
   }
 }
 .selected{
-  border: 1px solid #1890ff !important;
+  border: $canvas-wrapper-border-size solid #1890ff !important;
 }
 .component{
   pointer-events: none;
+}
+.canvas-mask{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.mask-copy-wrapper,
+.mask-delete-wrapper{
+  cursor: pointer;
+  z-index: 10;
+  position: absolute;
+  bottom: 0;
+  $icon-size: 0.2rem;
+  width: $icon-size;
+  height: $icon-size;
+  @include flexUtil.flex-center;
+  text-align: center;
+  color: #FFF;
+  i{
+    font-size: 14px;
+  }
+}
+.mask-copy-wrapper{
+  right: 0.25rem;
+  background-color: #1890ff;
+}
+.mask-delete-wrapper{
+  right: 0;
+  background-color: #ff2e2e;
 }

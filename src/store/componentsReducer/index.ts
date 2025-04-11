@@ -53,10 +53,25 @@ export const componentsSlice = createSlice({
       }
       ;[list[from], list[to]] = [list[to], list[from]]
     },
+
+    // 移除指定id的组件
+    deleteComponent(state, action: PayloadAction<{ fe_id: string }>) {
+      const { fe_id } = action.payload
+      const list = state.componentList
+      const index = list.findIndex(item => item.fe_id === fe_id)
+      if (index > -1) {
+        list.splice(index, 1)
+      }
+    },
   },
 })
 
-export const { resetComponents, setSelectedId, addComponent, swapComponentLocation } =
-  componentsSlice.actions
+export const {
+  resetComponents,
+  setSelectedId,
+  addComponent,
+  swapComponentLocation,
+  deleteComponent,
+} = componentsSlice.actions
 
 export default componentsSlice.reducer
