@@ -7,28 +7,17 @@ import { DragStateType } from '@/store/dragReducer'
 import { StateType } from '@/store'
 import { getComponentConfByType } from '@/components/innerComponents'
 import { useDispatch, useSelector } from 'react-redux'
+import DisplayComponent from './DisplayComponent'
 
 type PropsType = {
   loading: boolean
 }
 
-function getComponent(component: ComponentInfoType) {
-  const { type, props } = component
-  const componentConf = getComponentConfByType(type)
-  if (!componentConf) {
-    return null
-  }
-  const { Component } = componentConf
-  return <Component {...props} />
-}
-
 const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
   const { componentList, selectedId } = useGetComponentInfo()
   const dispatch = useDispatch()
-  // 确定占位元素的位置(在哪个元素上/下)
-  const [relativeEleId, setRelativeEleId] = useState<string | null>(null)
-  const [placement, setPlacement] = useState<'top' | 'bottom' | null>(null)
-
+  // 占位组件所在的索引
+  const [tmpIndex, setTmpIndex] = useState<number | null>(null)
   // 拿到拖拽中的组件的 type
   const { dragingCompoentType } = useSelector((state: StateType) => state.drag) as DragStateType
 
@@ -49,38 +38,35 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
    * 清除占位组件
    */
   function clearTmpComponent() {
-    setRelativeEleId(null)
-    setPlacement(null)
+    setTmpIndex(null)
   }
 
   /**
    * 将最后一个组件的下方确认为占位组件
    */
   function setEndTmpComponent() {
-    if (componentList.length > 0) {
-      const lastComponent = componentList[componentList.length - 1]
-      setRelativeEleId(lastComponent.fe_id)
-      setPlacement('bottom')
+    if (!componentList || componentList.length <= 0) {
+      return
     }
+    setTmpIndex(componentList.length)
   }
 
   /**
    * 拖拽元素进入其他组件之后的逻辑：确定占位组件
    * @param e
-   * @param id 进入的组件 id
+   * @param componentIndex 进入的组件的索引
    */
-  function handleDragEnter(e: DragEvent, id: string) {
+  function handleDragEnter(e: DragEvent, componentIndex: number) {
     e.stopPropagation()
     e.preventDefault()
     if (e.target instanceof HTMLElement) {
-      setRelativeEleId(id)
       const rect = e.target.getBoundingClientRect()
       const dragLeaveY = e.clientY
       const centerY = rect.top + rect.height / 2
       if (dragLeaveY < centerY) {
-        setPlacement('top')
+        setTmpIndex(componentIndex)
       } else {
-        setPlacement('bottom')
+        setTmpIndex(componentIndex + 1)
       }
     } else {
       clearTmpComponent()
@@ -98,11 +84,9 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     if (!componentConf) {
       return
     }
-    let index = componentList.findIndex(component => component.fe_id === relativeEleId)
-    if (index === -1) {
+    if (tmpIndex === null) {
       return
     }
-    index += placement === 'top' ? 0 : 1
     const componentInfo: ComponentInfoType = {
       fe_id: Math.random().toString(36).substring(2),
       type: dragingCompoentType,
@@ -111,7 +95,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
 
     dispatch(
       addComponent({
-        index,
+        index: tmpIndex,
         ComponentInfo: componentInfo,
       })
     )
@@ -143,16 +127,18 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
   function handleEnterContainer(e: DragEvent) {
     e.preventDefault()
     const canvasContainer = document.getElementById('canvasContainer')
-    if (canvasContainer) {
-      const lastComponent = document.getElementById('last')
-      if (lastComponent) {
-        const lastComponentRect = lastComponent.getBoundingClientRect()
-        const canvasRect = canvasContainer.getBoundingClientRect()
-        const dragY = e.clientY
-        if (dragY > lastComponentRect.bottom && dragY < canvasRect.bottom) {
-          setEndTmpComponent()
-        }
-      }
+    if (!canvasContainer) {
+      return
+    }
+    const lastComponent = document.getElementById('last')
+    if (!lastComponent) {
+      return
+    }
+    const lastComponentRect = lastComponent.getBoundingClientRect()
+    const canvasRect = canvasContainer.getBoundingClientRect()
+    const dragY = e.clientY
+    if (dragY > lastComponentRect.bottom && dragY < canvasRect.bottom) {
+      setEndTmpComponent()
     }
   }
 
@@ -169,7 +155,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
         const { fe_id } = componentInfo
         return (
           <div key={fe_id}>
-            {placement === 'top' && relativeEleId === fe_id && (
+            {index === tmpIndex && (
               <div
                 style={{ width: '100%' }}
                 className={styles.placeholder}
@@ -180,25 +166,29 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
             )}
             <div
               id={index + 1 === componentList.length ? 'last' : undefined}
-              className={`${styles['canvas-wrapper']} ${selectedId === fe_id ? styles.selected : ''} ${fe_id}`}
               onClick={e => handleClick(e, fe_id)}
-              onDragEnter={e => handleDragEnter(e, fe_id)}
+              onDragEnter={e => handleDragEnter(e, index)}
               onDragOver={e => e.preventDefault()}
             >
-              <div className={styles.component}>{getComponent(componentInfo)}</div>
+              <DisplayComponent
+                info={componentInfo}
+                curIndex={index}
+                len={componentList.length}
+                selectedId={selectedId}
+              />
             </div>
-            {placement === 'bottom' && relativeEleId === fe_id && (
-              <div
-                style={{ width: '100%' }}
-                className={styles.placeholder}
-                onDragOver={e => e.preventDefault()}
-              >
-                占位组件下
-              </div>
-            )}
           </div>
         )
       })}
+      {componentList.length === tmpIndex && (
+        <div
+          style={{ width: '100%' }}
+          className={styles.placeholder}
+          onDragOver={e => e.preventDefault()}
+        >
+          占位组件end
+        </div>
+      )}
     </div>
   )
 }
