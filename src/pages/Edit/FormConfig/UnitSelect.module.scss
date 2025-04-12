@@ -1,0 +1,42 @@
+@use "@/styles/common/static.scss" as common;
+@use "@/styles/common/flex.scss" as flexUtil;
+
+
+$size: 0.22rem;
+.unit-wrapper{
+  width: $size;
+  height: $size;
+  padding: 0 0.025rem;
+}
+
+.container{
+  @include flexUtil.flex-center-y;
+}
+
+.unit-wrapper,
+.auto-btn{
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  color: rgb(91, 100, 117);
+  @include flexUtil.flex-center;
+}
+
+.auto-btn{
+  width: 1.25rem;
+  height: $size;
+}
+
+.auto-btn,
+.unit-wrapper,
+.unit-item{
+  cursor: pointer;
+  &:hover{
+    color: common.$font-color;
+    background-color: common.$back-color;
+  }
+}
+.unit-item{
+  margin: 0 -0.1rem;
+  padding: 0.02rem 0.05rem;
+  text-align: center;
+}

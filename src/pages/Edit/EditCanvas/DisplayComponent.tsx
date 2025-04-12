@@ -5,7 +5,7 @@ import { chanageDragMode, DragModeTypes } from '@/store/dragReducer'
 import { useDispatch } from 'react-redux'
 import { getComponentConfByType } from '@/components/innerComponents'
 import { useCopyComponent, useDeleteComponet } from '@/hooks'
-import { Form } from 'antd'
+import FormItem from './FormItem'
 import styles from './DisplayComponent.module.scss'
 
 /**
@@ -66,9 +66,9 @@ const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComp
           <span>隐藏</span>
         </div>
       )}
-      <Form.Item label={label}>
+      <FormItem label={label}>
         <div className={styles.component}>{getComponentByInfo(info)}</div>
-      </Form.Item>
+      </FormItem>
     </div>
   )
 }
