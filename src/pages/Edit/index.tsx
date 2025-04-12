@@ -2,7 +2,8 @@ import React, { FC } from 'react'
 import styles from './index.module.scss'
 import EditCanvas from './EditCanvas'
 import LeftPanel from './LeftPanel'
-import useLoadFormData from '@/hooks/useLoadFormData'
+import RightPanel from './RightPanel'
+import { useLoadFormData } from '@/hooks'
 import { useDispatch } from 'react-redux'
 import { setSelectedId } from '@/store/componentsReducer'
 
@@ -25,7 +26,9 @@ const Edit: FC = function () {
               <EditCanvas loading={loading} />
             </div>
           </main>
-          <div className={styles.right}>Right</div>
+          <div className={styles.right}>
+            <RightPanel />
+          </div>
         </div>
       </div>
     </div>
