@@ -1,7 +1,7 @@
 import React, { FC, MouseEvent, DragEvent, useState } from 'react'
 import styles from './index.module.scss'
 import { Spin } from 'antd'
-import useGetComponentInfo from '@/hooks/useGetComponentInfo'
+import { useGetComponentInfo } from '@/hooks'
 import {
   ComponentInfoType,
   setSelectedId,
@@ -13,7 +13,7 @@ import { StateType } from '@/store'
 import { getComponentConfByType } from '@/components/innerComponents'
 import { getRandomUUID } from '@/utils'
 import { useDispatch, useSelector } from 'react-redux'
-import { Form } from 'antd'
+import FormWithConf from './FormWithConf'
 import DisplayComponent from './DisplayComponent'
 import TmpComponent from './TmpComponent'
 
@@ -212,7 +212,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
       onDrop={e => handleDrop(e)}
       onDragLeave={e => handleLeave(e)}
     >
-      <Form>
+      <FormWithConf>
         {componentList.map((componentInfo, index) => {
           const { fe_id } = componentInfo
           return (
@@ -236,7 +236,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
           )
         })}
         {componentList.length === tmpIndex && <TmpComponent type={draggingCompoentType} />}
-      </Form>
+      </FormWithConf>
     </div>
   )
 }

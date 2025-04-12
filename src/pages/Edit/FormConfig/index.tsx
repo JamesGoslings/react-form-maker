@@ -1,36 +1,29 @@
 import React, { FC } from 'react'
 import { Form, Input, Radio, Switch } from 'antd'
-import { Units } from '@/store/formConfReducer'
 import {
   setFormConf,
   FormConfStateType,
   StylePropType,
   ValueTypeForKey,
 } from '@/store/formConfReducer'
-import { useDispatch, useSelector } from 'react-redux'
-import { StateType } from '@/store'
+import { useDispatch } from 'react-redux'
+import { useGetFormConf } from '@/hooks'
 import UnitSelect from './UnitSelect'
 
 const FormConfig: FC = function () {
   const dispatch = useDispatch()
 
   let {
-    name = '',
-    labelAlign = 'right',
-    size = 'middle',
-    labelSuffix = '',
-    labelWidth = {
-      number: 0,
-      unit: Units.px,
-    },
-    itemMaginBottom = {
-      number: 0,
-      unit: Units.px,
-    },
-    hideRequiredSymbol = false,
-    showSubmitBtn = true,
-    showResetBtn = false,
-  } = useSelector((state: StateType) => state.formConf) as FormConfStateType
+    name,
+    labelAlign,
+    size,
+    labelSuffix,
+    labelWidth,
+    itemMaginBottom,
+    hideRequiredSymbol,
+    showSubmitBtn,
+    showResetBtn,
+  } = useGetFormConf()
 
   const labelPositionOptions = [
     {

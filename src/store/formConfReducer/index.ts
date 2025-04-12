@@ -58,23 +58,25 @@ export interface FormConfStateType {
   showResetBtn: boolean
 }
 
-const INIT_STATE: FormConfStateType = {
+export const defaultFormConf: FormConfStateType = {
   name: '',
   labelAlign: 'right',
   size: 'middle',
   labelSuffix: '',
   labelWidth: {
-    number: 0,
-    unit: Units.px,
+    number: -1,
+    unit: Units.auto,
   },
   itemMaginBottom: {
-    number: 0,
+    number: 10,
     unit: Units.px,
   },
   hideRequiredSymbol: false,
   showSubmitBtn: true,
   showResetBtn: false,
 }
+
+const INIT_STATE: FormConfStateType = defaultFormConf
 
 // 定义一个映射类型，用于根据键类型获取对应的值类型
 export type ValueTypeForKey<K extends keyof FormConfStateType> = FormConfStateType[K]
