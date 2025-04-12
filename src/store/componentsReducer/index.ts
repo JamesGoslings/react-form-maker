@@ -5,6 +5,7 @@ export type ComponentInfoType = {
   fe_id: string
   type: ComponentType
   props: ComponentPropsType
+  hidden?: Boolean
 }
 
 export type ComponentsStateType = {
@@ -63,6 +64,25 @@ export const componentsSlice = createSlice({
         list.splice(index, 1)
       }
     },
+
+    // 隐藏某个组件
+    hideComponent(state, action: PayloadAction<{ fe_id: string }>) {
+      const { fe_id } = action.payload
+      const component = state.componentList.find(item => item.fe_id === fe_id)
+      if (component === undefined) {
+        return
+      }
+      component.hidden = true
+    },
+    // 展示某个组件
+    showComponent(state, action: PayloadAction<{ fe_id: string }>) {
+      const { fe_id } = action.payload
+      const component = state.componentList.find(item => item.fe_id === fe_id)
+      if (component === undefined) {
+        return
+      }
+      component.hidden = false
+    },
   },
 })
 
@@ -72,6 +92,8 @@ export const {
   addComponent,
   swapComponentLocation,
   deleteComponent,
+  hideComponent,
+  showComponent,
 } = componentsSlice.actions
 
 export default componentsSlice.reducer

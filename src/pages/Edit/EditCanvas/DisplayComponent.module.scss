@@ -11,6 +11,9 @@ $canvas-wrapper-border-size: 1.35px;
   position: relative;
   &:hover{
     border: $canvas-wrapper-border-size solid #188fff82;
+    .canvas-mask-hidden{
+      display: none;
+    }
   }
 }
 .selected{
@@ -19,17 +22,29 @@ $canvas-wrapper-border-size: 1.35px;
 .component{
   pointer-events: none;
 }
+
+.canvas-mask-hidden,
 .canvas-mask{
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
+  z-index: 10;
 }
+.canvas-mask-hidden{
+  background-color: rgba(51, 51, 51, .7);
+  @include flexUtil.flex-center;
+  color: #FFF;
+  i{
+    margin-right: 0.05rem;
+    font-size: 20px;
+  }
+}
+
 .mask-copy-wrapper,
 .mask-delete-wrapper{
   cursor: pointer;
-  z-index: 10;
   position: absolute;
   bottom: 0;
   $icon-size: 0.2rem;

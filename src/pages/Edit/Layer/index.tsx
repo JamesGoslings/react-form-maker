@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
-import useGetComponentInfo from '@/hooks/useGetComponentInfo'
 import { getComponentConfListByTypes } from '@/components/innerComponents'
 import { useDispatch } from 'react-redux'
-import { useCopyComponent, useDeleteComponet } from '@/hooks'
-import { setSelectedId } from '@/store/componentsReducer'
+import { useCopyComponent, useDeleteComponet, useGetComponentInfo } from '@/hooks'
+import { setSelectedId, hideComponent, showComponent } from '@/store/componentsReducer'
 import { Popover } from 'antd'
 import styles from './index.module.scss'
 
@@ -20,13 +19,20 @@ const Layer: FC = function () {
     dispatch(setSelectedId(id))
   }
 
+  function changeComponentHidden(fe_id: string, isHidden: Boolean) {
+    if (isHidden) {
+      dispatch(showComponent({ fe_id }))
+    } else {
+      dispatch(hideComponent({ fe_id }))
+    }
+  }
   return (
     <div>
       {componentConfList.map((conf, index) => {
         const { iconClass, title } = conf
         const componentInfo = componentList[index]
         const { label = title } = componentInfo.props
-        const { fe_id } = componentInfo
+        const { fe_id, hidden = false } = componentInfo
         return (
           <div
             className={`${styles.item}  ${selectedId === fe_id ? styles.selected : ''}`}
@@ -37,7 +43,10 @@ const Layer: FC = function () {
               <span>{label}</span>
             </div>
             <div className={styles['fun-wrapper']}>
-              <i className={`iconfont icon-show`}></i>
+              <i
+                className={`iconfont ${hidden ? 'icon-hide' : 'icon-show'}`}
+                onClick={() => changeComponentHidden(fe_id, hidden)}
+              ></i>
               <Popover
                 content={
                   <>

@@ -25,7 +25,7 @@ function getComponentByInfo(component: ComponentInfoType) {
 }
 const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComponentProps) {
   const { info, selectedId, onChangeDraggingIndex: changeDraggingIndex, curIndex } = props
-  const { fe_id } = info
+  const { fe_id, hidden = false } = info
   const { label = '' } = props.info.props
 
   const dispatch = useDispatch()
@@ -58,6 +58,12 @@ const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComp
           <div className={styles['mask-delete-wrapper']} onClick={() => deleteComponent(fe_id)}>
             <i className={`iconfont icon-delete-area`}></i>
           </div>
+        </div>
+      )}
+      {hidden && (
+        <div className={styles['canvas-mask-hidden']}>
+          <i className="iconfont icon-hide"></i>
+          <span>隐藏</span>
         </div>
       )}
       <Form.Item label={label}>
