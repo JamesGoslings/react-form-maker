@@ -5,6 +5,7 @@ import { chanageDragMode, DragModeTypes } from '@/store/dragReducer'
 import { useDispatch } from 'react-redux'
 import { getComponentConfByType } from '@/components/innerComponents'
 import { getRandomUUID } from '@/utils'
+import { Form } from 'antd'
 import styles from './DisplayComponent.module.scss'
 
 /**
@@ -23,6 +24,9 @@ function getComponentByInfo(component: ComponentInfoType) {
 }
 const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComponentProps) {
   const { info, selectedId, onChangeDraggingIndex: changeDraggingIndex, curIndex } = props
+
+  const { label = '' } = props.info.props
+
   const dispatch = useDispatch()
 
   /**
@@ -75,7 +79,9 @@ const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComp
           </div>
         </div>
       )}
-      <div className={styles.component}>{getComponentByInfo(info)}</div>
+      <Form.Item label={label}>
+        <div className={styles.component}>{getComponentByInfo(info)}</div>
+      </Form.Item>
     </div>
   )
 }

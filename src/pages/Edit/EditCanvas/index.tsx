@@ -13,6 +13,7 @@ import { StateType } from '@/store'
 import { getComponentConfByType } from '@/components/innerComponents'
 import { getRandomUUID } from '@/utils'
 import { useDispatch, useSelector } from 'react-redux'
+import { Form } from 'antd'
 import DisplayComponent from './DisplayComponent'
 import TmpComponent from './TmpComponent'
 
@@ -173,7 +174,6 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     const relatedTarget = e.relatedTarget as HTMLElement | null
     if (!relatedTarget || !canvasContainer.contains(relatedTarget)) {
       clearTmpComponent()
-      dispatch(chanageDragMode(null))
     }
   }
 
@@ -212,29 +212,31 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
       onDrop={e => handleDrop(e)}
       onDragLeave={e => handleLeave(e)}
     >
-      {componentList.map((componentInfo, index) => {
-        const { fe_id } = componentInfo
-        return (
-          <div key={fe_id}>
-            {index === tmpIndex && <TmpComponent type={draggingCompoentType} />}
-            <div
-              id={index + 1 === componentList.length ? 'last' : undefined}
-              onClick={e => handleClick(e, fe_id)}
-              onDragEnter={e => handleDragEnter(e, index)}
-              onDragOver={e => e.preventDefault()}
-            >
-              <DisplayComponent
-                info={componentInfo}
-                curIndex={index}
-                len={componentList.length}
-                selectedId={selectedId}
-                onChangeDraggingIndex={handleChangeDraggingIndex}
-              />
+      <Form>
+        {componentList.map((componentInfo, index) => {
+          const { fe_id } = componentInfo
+          return (
+            <div key={fe_id}>
+              {index === tmpIndex && <TmpComponent type={draggingCompoentType} />}
+              <div
+                id={index + 1 === componentList.length ? 'last' : undefined}
+                onClick={e => handleClick(e, fe_id)}
+                onDragEnter={e => handleDragEnter(e, index)}
+                onDragOver={e => e.preventDefault()}
+              >
+                <DisplayComponent
+                  info={componentInfo}
+                  curIndex={index}
+                  len={componentList.length}
+                  selectedId={selectedId}
+                  onChangeDraggingIndex={handleChangeDraggingIndex}
+                />
+              </div>
             </div>
-          </div>
-        )
-      })}
-      {componentList.length === tmpIndex && <TmpComponent type={draggingCompoentType} />}
+          )
+        })}
+        {componentList.length === tmpIndex && <TmpComponent type={draggingCompoentType} />}
+      </Form>
     </div>
   )
 }
