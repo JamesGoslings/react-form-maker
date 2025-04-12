@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ComponentPropsType } from '@/components/innerComponents'
+import { ComponentPropsType, ComponentType } from '@/components/innerComponents'
 
 export type ComponentInfoType = {
   fe_id: string
-  type: string
+  type: ComponentType
   props: ComponentPropsType
 }
 

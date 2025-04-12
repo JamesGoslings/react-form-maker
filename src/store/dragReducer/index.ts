@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ComponentType } from '@/components/innerComponents'
 
 /**
  * 拖拽相关状态管理
@@ -13,7 +14,7 @@ export enum DragModeTypes {
 }
 
 export type DragStateType = {
-  draggingCompoentType: string
+  draggingCompoentType: ComponentType | ''
   dragMode?: DragModeTypes | null
 }
 
@@ -26,7 +27,7 @@ export const dragSlice = createSlice({
   initialState: INIT_STATE,
   reducers: {
     // 修改状态中记录的当前正在拖拽的组件的 type 字段
-    setDraggingCompoentType(state: DragStateType, action: PayloadAction<string>) {
+    setDraggingCompoentType(state: DragStateType, action: PayloadAction<ComponentType>) {
       state.draggingCompoentType = action.payload
     },
     // 修改拖拽模式

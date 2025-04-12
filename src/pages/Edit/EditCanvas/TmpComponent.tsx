@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import styles from './TmpComponent.module.scss'
-import { getComponentConfByType } from '@/components/innerComponents'
+import { getComponentConfByType, ComponentType } from '@/components/innerComponents'
 
 type PropTypes = {
-  type: string // 组件类型
+  type: ComponentType | '' // 组件类型
 }
 
 /**

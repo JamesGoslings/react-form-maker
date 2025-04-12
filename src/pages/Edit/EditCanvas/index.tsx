@@ -101,7 +101,7 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
    */
   function addComponentToCanvas() {
     const componentConf = getComponentConfByType(draggingCompoentType)
-    if (!componentConf) {
+    if (!componentConf || !draggingCompoentType) {
       return
     }
     if (tmpIndex === null) {

@@ -1,6 +1,6 @@
 import InputConf from './InnerInput'
 import TitleConf from './InnerTitle'
-import type { ComponentConfType } from './type'
+import type { ComponentConfType, ComponentType } from './type'
 
 export * from './type'
 
@@ -18,6 +18,14 @@ export const componentConfGroup = [
     componentConfs: [InputConf],
   },
 ]
-export function getComponentConfByType(type: string): ComponentConfType | undefined {
+export function getComponentConfByType(
+  type: ComponentType | '' | null
+): ComponentConfType | undefined {
   return componentConfs.find(c => c.type === type)
+}
+
+export function getComponentConfListByTypes(
+  typeList: (ComponentType | '' | null)[]
+): ComponentConfType[] {
+  return typeList.map(type => getComponentConfByType(type)).filter(Boolean) as ComponentConfType[]
 }

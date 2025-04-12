@@ -8,8 +8,13 @@ export type ComponentPropsType = InputPropsType & TitlePropsType
 // 组件配置类型
 export type ComponentConfType = {
   title: string
-  type: string
+  type: ComponentType
   Component: FC<ComponentPropsType>
   defaultProps: ComponentPropsType
   iconClass: string
+}
+
+export enum ComponentType {
+  INPUT = 'innerInput',
+  TITLE = 'innerTitle',
 }

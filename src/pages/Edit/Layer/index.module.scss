@@ -1,0 +1,39 @@
+@use "@/styles/common/flex.scss" as flexUtil;
+
+$back-color: #e6f4ff;
+$font-color: #1677ff;
+
+
+.item{
+  width: 100%;
+  box-sizing: border-box;
+  @include flexUtil.flex-between;
+  padding: 0.1rem;
+}
+.selected{
+  color: $font-color;
+}
+.content{
+  i{
+    margin-right: 0.06rem;
+  }
+}
+.fun-wrapper{
+  i{
+    font-size: 18px;
+    margin-left: 0.125rem;
+  }
+}
+.more-fun{
+  box-sizing: border-box;
+  padding: 0.05rem 0.25rem;
+  width: 100%;
+}
+
+.item, .more-fun{
+  cursor: pointer;
+  &:hover{
+    background-color: $back-color;
+    color: $font-color;
+  }
+}

@@ -4,13 +4,13 @@
 
 import Component from './Component'
 import { inputDefaultProps } from './type'
-import { ComponentConfType } from '../index'
+import { ComponentConfType, ComponentType } from '../type'
 
 export * from './type'
 
 const InnerInputConfig: ComponentConfType = {
   title: '输入框',
-  type: 'innerInput',
+  type: ComponentType.INPUT,
   Component,
   defaultProps: inputDefaultProps,
   iconClass: 'icon-form-input',

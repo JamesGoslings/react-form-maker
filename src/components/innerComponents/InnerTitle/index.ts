@@ -4,13 +4,13 @@
 
 import Component from './Component'
 import { titleDefaultProps } from './type'
-import { ComponentConfType } from '../index'
+import { ComponentConfType, ComponentType } from '../type'
 
 export * from './type'
 
 const InnerTitleConfig: ComponentConfType = {
   title: '标题',
-  type: 'innerTitle',
+  type: ComponentType.TITLE,
   Component,
   defaultProps: titleDefaultProps,
   iconClass: 'icon-form-title',
