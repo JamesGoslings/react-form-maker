@@ -214,9 +214,10 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
     >
       <FormWithConf>
         {componentList.map((componentInfo, index) => {
-          const { fe_id } = componentInfo
+          const { fe_id, basicProps } = componentInfo
+          const { componentWidth = '100%' } = basicProps ?? {}
           return (
-            <div key={fe_id} style={{ width: '100%' }}>
+            <div key={fe_id} style={{ width: componentWidth }}>
               {index === tmpIndex && <TmpComponent type={draggingCompoentType} />}
               <div
                 id={index + 1 === componentList.length ? 'last' : undefined}

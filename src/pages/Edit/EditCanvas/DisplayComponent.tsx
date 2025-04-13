@@ -29,11 +29,11 @@ function getComponentByInfo(component: ComponentInfoType) {
 }
 const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComponentProps) {
   const { info, selectedId, onChangeDraggingIndex: changeDraggingIndex, curIndex } = props
-  const { fe_id, hidden = false, type } = info
+  const { fe_id, hidden = false, type, basicProps } = info
   const groupId = useMemo(() => {
     return getGroupIdByComponentType(type)
   }, [type])
-  const { label = '' } = props.info.basicProps ?? {}
+  // const { label = '' } = basicProps ?? {}
 
   const dispatch = useDispatch()
   const copyComponent = useCopyComponent()
@@ -74,7 +74,7 @@ const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComp
         </div>
       )}
       {groupId === GroupIds.BASIC ? (
-        <FormItemWithConf label={label}>
+        <FormItemWithConf basicProps={basicProps}>
           <div className={styles.component}>{getComponentByInfo(info)}</div>
         </FormItemWithConf>
       ) : (

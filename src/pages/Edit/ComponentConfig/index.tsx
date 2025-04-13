@@ -11,6 +11,9 @@ const ComponentConfig: FC = function () {
   const { selectedId, componentList } = useGetComponentInfo()
   const { basicProps = {}, type } =
     (componentList.find(c => c.fe_id === selectedId) as ComponentInfoType) ?? {}
+  if (!selectedId || !type) {
+    return <></>
+  }
   const groupId = getGroupIdByComponentType(type)
   return (
     <div>
