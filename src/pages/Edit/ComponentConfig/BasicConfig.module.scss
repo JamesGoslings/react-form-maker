@@ -1,0 +1,8 @@
+@use "@/styles/common/flex.scss" as flexUtil;
+
+.form-label-conf-wrapper{
+  @include flexUtil.flex-between;
+}
+.form-label-conf{
+
+}

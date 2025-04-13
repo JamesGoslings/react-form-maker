@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Form } from 'antd'
 import { useGetFormConf } from '@/hooks'
+import styles from './FormWithConf.module.scss'
 
 type PropsType = {
   children: React.ReactNode[] | React.ReactNode
@@ -16,6 +17,7 @@ const FormWithConf: FC<PropsType> = ({ children }: PropsType) => {
       labelAlign={labelAlign === 'top' ? 'right' : labelAlign}
       layout={labelAlign === 'top' ? 'vertical' : 'horizontal'}
       size={size}
+      className={styles['form-container']}
     >
       {normalizedChildren}
     </Form>

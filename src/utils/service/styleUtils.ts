@@ -1,4 +1,4 @@
-import { StylePropType, Units } from '@/store/formConfReducer'
+import { StylePropType, Units } from '@/components/common/UnitStyleSelect'
 
 /**
  * 样式处理相关工具

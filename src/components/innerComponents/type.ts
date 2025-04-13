@@ -18,3 +18,8 @@ export enum ComponentType {
   INPUT = 'innerInput',
   TITLE = 'innerTitle',
 }
+
+export enum GroupIds {
+  BASIC = 'basic',
+  SHOW = 'show',
+}

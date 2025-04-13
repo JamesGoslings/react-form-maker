@@ -1,0 +1,19 @@
+@use "@/styles/common/static.scss" as common;
+@use "@/styles/common/flex.scss" as flexUtils;
+
+.config-title{
+  @include flexUtils.flex-center-y;
+  margin: 0.12rem 0;
+  font-size: 16px;
+  padding-left: 0.1rem;
+  position: relative;
+  &::before{
+    content: " ";
+    width: 2px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    display: block;
+    background-color: common.$style-color;
+  }
+}

@@ -1,23 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { shallowCopy } from '@/utils'
+import { Units, StylePropType } from '@/components/common/UnitStyleSelect'
+import { ValueTypeForKey } from '@/utils'
 
 /**
  * 全局的表单样式配置的状态管理
  */
-
-export enum Units {
-  'px' = 'px',
-  '%' = '%',
-  'em' = 'em',
-  'rem' = 'rem',
-  'vw' = 'vw',
-  'vh' = 'vh',
-  'auto' = 'auto',
-}
-export interface StylePropType {
-  number: number
-  unit: Units
-}
 
 export interface FormConfStateType {
   /**
@@ -78,16 +66,13 @@ export const defaultFormConf: FormConfStateType = {
 
 const INIT_STATE: FormConfStateType = defaultFormConf
 
-// 定义一个映射类型，用于根据键类型获取对应的值类型
-export type ValueTypeForKey<K extends keyof FormConfStateType> = FormConfStateType[K]
-
 export const formConfSlice = createSlice({
   name: 'formConf',
   initialState: INIT_STATE,
   reducers: {
     setFormConf: <K extends keyof FormConfStateType>(
       state: FormConfStateType,
-      action: PayloadAction<{ key: K; value: ValueTypeForKey<K> }>
+      action: PayloadAction<{ key: K; value: ValueTypeForKey<FormConfStateType, K> }>
     ) => {
       const { key, value } = action.payload
       state[key] = shallowCopy(value)

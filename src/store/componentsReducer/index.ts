@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ComponentPropsType, ComponentType } from '@/components/innerComponents'
+import { BasicConfType, defaultBasicConf } from '@/pages/Edit/ComponentConfig'
+import { ValueTypeForKey } from '@/utils'
 
 export type ComponentInfoType = {
   fe_id: string
   type: ComponentType
   props: ComponentPropsType
   hidden?: Boolean
+  basicProps?: BasicConfType
 }
 
 export type ComponentsStateType = {
@@ -83,6 +86,22 @@ export const componentsSlice = createSlice({
       }
       component.hidden = false
     },
+
+    // 修改选中的组件的基础配置项
+    setSelectedComponentBasicConf: <K extends keyof BasicConfType>(
+      state: ComponentsStateType,
+      action: PayloadAction<{ key: K; value: ValueTypeForKey<BasicConfType, K> }>
+    ) => {
+      const { key, value } = action.payload
+      const component = state.componentList.find(({ fe_id }) => fe_id === state.selectedId)
+      if (!component) {
+        return
+      }
+      if (!component.basicProps) {
+        component.basicProps = { ...defaultBasicConf }
+      }
+      component.basicProps[key] = value
+    },
   },
 })
 
@@ -94,6 +113,7 @@ export const {
   deleteComponent,
   hideComponent,
   showComponent,
+  setSelectedComponentBasicConf,
 } = componentsSlice.actions
 
 export default componentsSlice.reducer

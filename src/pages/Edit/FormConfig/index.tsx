@@ -1,14 +1,11 @@
 import React, { FC } from 'react'
 import { Form, Input, Radio, Switch } from 'antd'
-import {
-  setFormConf,
-  FormConfStateType,
-  StylePropType,
-  ValueTypeForKey,
-} from '@/store/formConfReducer'
+import { setFormConf, FormConfStateType } from '@/store/formConfReducer'
+import { ValueTypeForKey } from '@/utils'
+import { StylePropType } from '@/components/common/UnitStyleSelect'
 import { useDispatch } from 'react-redux'
 import { useGetFormConf } from '@/hooks'
-import UnitSelect from './UnitSelect'
+import UnitStyleSelect from '@/components/common/UnitStyleSelect'
 
 const FormConfig: FC = function () {
   const dispatch = useDispatch()
@@ -54,7 +51,10 @@ const FormConfig: FC = function () {
     },
   ]
 
-  function handleChangeProp<K extends keyof FormConfStateType>(key: K, value: ValueTypeForKey<K>) {
+  function handleChangeProp<K extends keyof FormConfStateType>(
+    key: K,
+    value: ValueTypeForKey<FormConfStateType, K>
+  ) {
     dispatch(setFormConf({ key, value }))
   }
   function handleChangeWidth(prop: StylePropType) {
@@ -70,7 +70,7 @@ const FormConfig: FC = function () {
       <Form.Item label="表单名称">
         <Input
           placeholder="请输入表单名称"
-          defaultValue={name}
+          value={name}
           onChange={e => {
             handleChangeProp('name', e.target.value)
           }}
@@ -79,7 +79,7 @@ const FormConfig: FC = function () {
       <Form.Item label="标签的位置">
         <Radio.Group
           options={labelPositionOptions}
-          defaultValue={labelAlign}
+          value={labelAlign}
           onChange={e => {
             handleChangeProp('labelAlign', e.target.value)
           }}
@@ -88,7 +88,7 @@ const FormConfig: FC = function () {
       <Form.Item label="表单的尺寸">
         <Radio.Group
           options={sizeOptions}
-          defaultValue={size}
+          value={size}
           onChange={e => {
             handleChangeProp('size', e.target.value)
           }}
@@ -104,10 +104,14 @@ const FormConfig: FC = function () {
         />
       </Form.Item>
       <Form.Item label="标签的宽度">
-        <UnitSelect onChange={handleChangeWidth} onReset={handleChangeWidth} prop={labelWidth} />
+        <UnitStyleSelect
+          onChange={handleChangeWidth}
+          onReset={handleChangeWidth}
+          prop={labelWidth}
+        />
       </Form.Item>
       <Form.Item label="表单项的下边距">
-        <UnitSelect
+        <UnitStyleSelect
           onChange={handleChangeMarginBottom}
           onReset={handleChangeMarginBottom}
           prop={itemMaginBottom}
@@ -115,7 +119,7 @@ const FormConfig: FC = function () {
       </Form.Item>
       <Form.Item label="是否隐藏必选字段前的点标记">
         <Switch
-          defaultValue={hideRequiredSymbol}
+          value={hideRequiredSymbol}
           onChange={val => {
             handleChangeProp('hideRequiredSymbol', val)
           }}
@@ -123,7 +127,7 @@ const FormConfig: FC = function () {
       </Form.Item>
       <Form.Item label="是否显示提交按钮">
         <Switch
-          defaultValue={showSubmitBtn}
+          value={showSubmitBtn}
           onChange={val => {
             handleChangeProp('showSubmitBtn', val)
           }}
@@ -131,7 +135,7 @@ const FormConfig: FC = function () {
       </Form.Item>
       <Form.Item label="是否显示重置按钮">
         <Switch
-          defaultValue={showResetBtn}
+          value={showResetBtn}
           onChange={val => {
             handleChangeProp('showResetBtn', val)
           }}

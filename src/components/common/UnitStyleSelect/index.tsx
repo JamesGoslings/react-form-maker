@@ -1,8 +1,10 @@
 import React, { FC } from 'react'
-import { Units, StylePropType } from '@/store/formConfReducer'
+import { Units, StylePropType } from './type'
 import { Popover, InputNumber } from 'antd'
 import { getKeyByValueInEnum } from '@/utils'
-import styles from './UnitSelect.module.scss'
+import styles from './index.module.scss'
+
+export * from './type'
 
 type PropsType = {
   onChange: (prop: StylePropType) => void
@@ -10,7 +12,7 @@ type PropsType = {
   prop: StylePropType
 }
 
-const UnitSelect: FC<PropsType> = (props: PropsType) => {
+const UnitStyleSelect: FC<PropsType> = (props: PropsType) => {
   const { onChange, prop, onReset } = props
 
   const keysArray: (keyof typeof Units)[] = Object.keys(Units) as (keyof typeof Units)[]
@@ -35,7 +37,7 @@ const UnitSelect: FC<PropsType> = (props: PropsType) => {
           <InputNumber
             min={0}
             style={{ marginRight: '0.1rem' }}
-            defaultValue={prop.number}
+            value={prop.number}
             onChange={val => {
               handleChangeVal({
                 number: val ?? 0,
@@ -72,4 +74,4 @@ const UnitSelect: FC<PropsType> = (props: PropsType) => {
   )
 }
 
-export default UnitSelect
+export default UnitStyleSelect

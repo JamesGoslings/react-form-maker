@@ -39,9 +39,9 @@ const ComponentLib: FC = function () {
   return (
     <>
       {componentConfGroup.map((group, index) => {
-        const { groupName, componentConfs } = group
+        const { groupId, groupName, componentConfs } = group
         return (
-          <div key={index}>
+          <div key={groupId}>
             <Title level={3} style={{ fontSize: '16px', marginTop: index === 0 ? '0' : '0.2rem' }}>
               {groupName}
             </Title>

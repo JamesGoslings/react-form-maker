@@ -31,7 +31,7 @@ const Layer: FC = function () {
       {componentConfList.map((conf, index) => {
         const { iconClass, title } = conf
         const componentInfo = componentList[index]
-        const { label = title } = componentInfo.props
+        const { label = title } = componentInfo.basicProps ?? {}
         const { fe_id, hidden = false } = componentInfo
         return (
           <div

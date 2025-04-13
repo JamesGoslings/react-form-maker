@@ -1,9 +1,13 @@
-import React, { FC, DragEvent } from 'react'
+import React, { FC, DragEvent, useMemo } from 'react'
 import { DisplayComponentProps } from './type'
 import { ComponentInfoType } from '@/store/componentsReducer'
 import { chanageDragMode, DragModeTypes } from '@/store/dragReducer'
 import { useDispatch } from 'react-redux'
-import { getComponentConfByType } from '@/components/innerComponents'
+import {
+  getComponentConfByType,
+  getGroupIdByComponentType,
+  GroupIds,
+} from '@/components/innerComponents'
 import { useCopyComponent, useDeleteComponet } from '@/hooks'
 import FormItemWithConf from './FormItemWithConf'
 import styles from './DisplayComponent.module.scss'
@@ -25,8 +29,11 @@ function getComponentByInfo(component: ComponentInfoType) {
 }
 const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComponentProps) {
   const { info, selectedId, onChangeDraggingIndex: changeDraggingIndex, curIndex } = props
-  const { fe_id, hidden = false } = info
-  const { label = '' } = props.info.props
+  const { fe_id, hidden = false, type } = info
+  const groupId = useMemo(() => {
+    return getGroupIdByComponentType(type)
+  }, [type])
+  const { label = '' } = props.info.basicProps ?? {}
 
   const dispatch = useDispatch()
   const copyComponent = useCopyComponent()
@@ -66,9 +73,13 @@ const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComp
           <span>隐藏</span>
         </div>
       )}
-      <FormItemWithConf label={label}>
+      {groupId === GroupIds.BASIC ? (
+        <FormItemWithConf label={label}>
+          <div className={styles.component}>{getComponentByInfo(info)}</div>
+        </FormItemWithConf>
+      ) : (
         <div className={styles.component}>{getComponentByInfo(info)}</div>
-      </FormItemWithConf>
+      )}
     </div>
   )
 }
