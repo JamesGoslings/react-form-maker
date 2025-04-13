@@ -1,8 +1,9 @@
 @use "@/styles/common/flex.scss" as flexUtil;
+@use "@/styles/common/static.scss" as common;
 
 .form-label-conf-wrapper{
   @include flexUtil.flex-between;
 }
-.form-label-conf{
-
+.show-eye{
+  color: common.$font-color;
 }

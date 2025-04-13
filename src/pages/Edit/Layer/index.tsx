@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useCopyComponent, useDeleteComponet, useGetComponentInfo } from '@/hooks'
 import { setSelectedId, hideComponent, showComponent } from '@/store/componentsReducer'
 import { Popover } from 'antd'
+import HideAndShowSwitch from '@/components/common/HideAndShowSwitch'
 import styles from './index.module.scss'
 
 const Layer: FC = function () {
@@ -19,7 +20,7 @@ const Layer: FC = function () {
     dispatch(setSelectedId(id))
   }
 
-  function changeComponentHidden(fe_id: string, isHidden: Boolean) {
+  function changeComponentHidden(fe_id: string, isHidden: boolean) {
     if (isHidden) {
       dispatch(showComponent({ fe_id }))
     } else {
@@ -43,10 +44,10 @@ const Layer: FC = function () {
               <span>{label}</span>
             </div>
             <div className={styles['fun-wrapper']}>
-              <i
-                className={`iconfont ${hidden ? 'icon-hide' : 'icon-show'}`}
-                onClick={() => changeComponentHidden(fe_id, hidden)}
-              ></i>
+              <HideAndShowSwitch
+                hidden={hidden}
+                onChange={() => changeComponentHidden(fe_id, hidden)}
+              />
               <Popover
                 content={
                   <>

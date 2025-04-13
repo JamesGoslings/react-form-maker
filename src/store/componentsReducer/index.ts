@@ -7,7 +7,7 @@ export type ComponentInfoType = {
   fe_id: string
   type: ComponentType
   props: ComponentPropsType
-  hidden?: Boolean
+  hidden?: boolean
   basicProps?: BasicConfType
 }
 

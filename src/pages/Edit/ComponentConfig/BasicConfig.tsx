@@ -6,10 +6,18 @@ import UnitStyleSelect from '@/components/common/UnitStyleSelect'
 import { StylePropType, Units } from '@/components/common/UnitStyleSelect'
 import { useDispatch } from 'react-redux'
 import { defaultBasicConf, BasicConfType } from './type'
+import HideAndShowSwitch from '@/components/common/HideAndShowSwitch'
 import styles from './BasicConfig.module.scss'
 
 const BasicConfig: FC<BasicConfType | {}> = function (props: BasicConfType | {}) {
-  const { label, helpText, componentWidth, labelAlign, hiddenLabel, labelWidth } = {
+  const {
+    label,
+    helpText,
+    componentWidth,
+    labelAlign,
+    hiddenLabel = false,
+    labelWidth,
+  } = {
     ...defaultBasicConf,
     ...props,
   }
@@ -75,7 +83,13 @@ const BasicConfig: FC<BasicConfType | {}> = function (props: BasicConfType | {})
               label: (
                 <div className={styles['form-label-conf-wrapper']}>
                   <span>配置表单项</span>
-                  <i className={`iconfont ${hiddenLabel ? 'icon-hide' : 'icon-show'}`} />
+                  <HideAndShowSwitch
+                    hidden={hiddenLabel}
+                    className={hiddenLabel ? '' : styles['show-eye']}
+                    onChange={val => {
+                      handleChangeProp('hiddenLabel', val)
+                    }}
+                  />
                 </div>
               ),
               children: (
