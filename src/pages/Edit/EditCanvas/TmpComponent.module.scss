@@ -2,7 +2,7 @@
 
 .placeholder{
   @include flexUtil.flex-center;
-  max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
   background-color: rgb(245,245,245);
   margin: 0.12rem;

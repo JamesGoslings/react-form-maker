@@ -217,23 +217,25 @@ const EditCanvas: FC<PropsType> = function ({ loading }: PropsType) {
           const { fe_id, basicProps } = componentInfo
           const { componentWidth = '100%' } = basicProps ?? {}
           return (
-            <div key={fe_id} style={{ width: componentWidth }}>
+            <>
               {index === tmpIndex && <TmpComponent type={draggingCompoentType} />}
-              <div
-                id={index + 1 === componentList.length ? 'last' : undefined}
-                onClick={e => handleClick(e, fe_id)}
-                onDragEnter={e => handleDragEnter(e, index)}
-                onDragOver={e => e.preventDefault()}
-              >
-                <DisplayComponent
-                  info={componentInfo}
-                  curIndex={index}
-                  len={componentList.length}
-                  selectedId={selectedId}
-                  onChangeDraggingIndex={handleChangeDraggingIndex}
-                />
+              <div key={fe_id} style={{ width: componentWidth }}>
+                <div
+                  id={index + 1 === componentList.length ? 'last' : undefined}
+                  onClick={e => handleClick(e, fe_id)}
+                  onDragEnter={e => handleDragEnter(e, index)}
+                  onDragOver={e => e.preventDefault()}
+                >
+                  <DisplayComponent
+                    info={componentInfo}
+                    curIndex={index}
+                    len={componentList.length}
+                    selectedId={selectedId}
+                    onChangeDraggingIndex={handleChangeDraggingIndex}
+                  />
+                </div>
               </div>
-            </div>
+            </>
           )
         })}
         {componentList.length === tmpIndex && <TmpComponent type={draggingCompoentType} />}

@@ -23,6 +23,7 @@ const ComponentConfig: FC = function () {
           <BasicConfig {...basicProps} />
         </>
       )}
+      <div className={styles['config-title']}>属性配置</div>
     </div>
   )
 }
