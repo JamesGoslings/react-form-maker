@@ -3,11 +3,11 @@ import { Input } from 'antd'
 import { InputPropsType, inputDefaultProps } from './type'
 
 const InnerInput: FC<InputPropsType> = function (props) {
-  const { placeholder } = { ...inputDefaultProps, ...props }
+  const { placeholder, showCount } = { ...inputDefaultProps, ...props }
   return (
     <div>
       <div>
-        <Input placeholder={placeholder}></Input>
+        <Input placeholder={placeholder} showCount={showCount}></Input>
       </div>
     </div>
   )

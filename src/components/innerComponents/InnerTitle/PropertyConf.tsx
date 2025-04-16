@@ -1,24 +1,11 @@
 import React, { FC } from 'react'
 import { TitlePropsType, titleDefaultProps } from './type'
-import { setSelectedComponentPropertyConf } from '@/store/componentsReducer'
-import { ValueTypeForKey } from '@/utils'
-import { useDispatch } from 'react-redux'
+import { useHandleChangeComponentProp } from '@/hooks'
 import { Form, Input, Select, Radio } from 'antd'
 
 const InnerTitlePropertyConf: FC<TitlePropsType> = function (props: TitlePropsType) {
-  const dispatch = useDispatch()
   const { text, level, titleAlign } = { ...titleDefaultProps, ...props }
-  /**
-   * 配置项值的统一change回调
-   * @param key 字段
-   * @param value 新值
-   */
-  function handleChangeProp<K extends keyof TitlePropsType>(
-    key: K,
-    value: ValueTypeForKey<TitlePropsType, K>
-  ) {
-    dispatch(setSelectedComponentPropertyConf({ key, value }))
-  }
+  const handleChangeProp = useHandleChangeComponentProp<TitlePropsType>()
   return (
     <Form colon={false} layout="vertical" size="small">
       <Form.Item label="标题内容">
