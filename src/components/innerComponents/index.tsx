@@ -1,6 +1,7 @@
+import React from 'react'
 import InputConf from './InnerInput'
 import TitleConf from './InnerTitle'
-import { ComponentConfType, ComponentType, GroupIds } from './type'
+import { ComponentConfType, ComponentType, GroupIds, ComponentPropsType } from './type'
 
 export * from './type'
 
@@ -39,4 +40,17 @@ export function getGroupIdByComponentType(type: ComponentType): GroupIds {
     }
   }
   throw new Error(`未找到${type}类型的组件对应的groupId`)
+}
+
+/**
+ * 通过组件类型拿物料对应的属性配置器
+ * @param type 组件类型
+ * @returns
+ */
+export function getPropertyConfByType(
+  type: ComponentType,
+  props: ComponentPropsType
+): JSX.Element | undefined {
+  const { PropertyConf } = getComponentConfByType(type) ?? {}
+  return PropertyConf ? <PropertyConf {...props} /> : undefined
 }

@@ -10,6 +10,7 @@ export type ComponentConfType = {
   title: string
   type: ComponentType
   Component: FC<ComponentPropsType>
+  PropertyConf: FC<ComponentPropsType>
   defaultProps: ComponentPropsType
   iconClass: string
 }

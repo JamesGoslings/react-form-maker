@@ -102,6 +102,20 @@ export const componentsSlice = createSlice({
       }
       component.basicProps[key] = value
     },
+
+    // 修改选中的组件的属性配置项
+    setSelectedComponentPropertyConf: <K extends keyof ComponentPropsType>(
+      state: ComponentsStateType,
+      action: PayloadAction<{ key: K; value: ValueTypeForKey<ComponentPropsType, K> }>
+    ) => {
+      const { key, value } = action.payload
+      const component = state.componentList.find(({ fe_id }) => fe_id === state.selectedId)
+      if (!component) {
+        return
+      }
+      const { props } = component
+      props[key] = value
+    },
   },
 })
 
@@ -114,6 +128,7 @@ export const {
   hideComponent,
   showComponent,
   setSelectedComponentBasicConf,
+  setSelectedComponentPropertyConf,
 } = componentsSlice.actions
 
 export default componentsSlice.reducer

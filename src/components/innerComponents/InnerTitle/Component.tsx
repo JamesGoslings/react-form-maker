@@ -1,15 +1,11 @@
 import React, { FC } from 'react'
-import { titleDefaultProps, TitlePropsType } from './type'
+import { titleDefaultProps, TitlePropsType, levelSizeMap } from './type'
 import { Typography } from 'antd'
 
 const { Title } = Typography
 const InnerTitle: FC<TitlePropsType> = (props: TitlePropsType) => {
-  const { text, level, isCenter } = { ...titleDefaultProps, ...props }
-  const levelSizeMap: Record<number, string> = {
-    1: '24px',
-    2: '20px',
-    3: '16px',
-  }
+  const { text, level, titleAlign } = { ...titleDefaultProps, ...props }
+
   function getFontSize(level: number | undefined): string {
     return levelSizeMap[level as number] ?? '16px'
   }
@@ -17,7 +13,7 @@ const InnerTitle: FC<TitlePropsType> = (props: TitlePropsType) => {
     <Title
       level={level}
       style={{
-        textAlign: isCenter ? 'center' : 'start',
+        textAlign: titleAlign ? titleAlign : 'start',
         fontSize: getFontSize(level),
         marginBottom: '0',
       }}
