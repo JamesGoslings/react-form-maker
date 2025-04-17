@@ -74,7 +74,7 @@ const DisplayComponent: FC<DisplayComponentProps> = function (props: DisplayComp
         </div>
       )}
       {groupId === GroupIds.BASIC ? (
-        <FormItemWithConf basicProps={basicProps}>
+        <FormItemWithConf basicProps={basicProps} type={type}>
           <div className={styles.component}>{getComponentByInfo(info)}</div>
         </FormItemWithConf>
       ) : (

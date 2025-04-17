@@ -1,20 +1,24 @@
 import React, { FC } from 'react'
-import { Form } from 'antd'
 import { BasicConfType } from '../ComponentConfig'
-import { Popover } from 'antd'
-import { useGetFormConf } from '@/hooks'
+import { ComponentType } from '@/components/innerComponents'
+import { Form, Popover } from 'antd'
+import { useGetFormConf, useGetDefaultLabelByType } from '@/hooks'
 import { getStyleByProp } from '@/utils'
 
 type PropsType = {
   children: React.ReactNode[] | React.ReactNode
   basicProps?: BasicConfType
+  type: ComponentType
 }
 
-const FormItemWithConf: FC<PropsType> = ({ children, basicProps }: PropsType) => {
+const FormItemWithConf: FC<PropsType> = ({ children, basicProps, type }: PropsType) => {
   const normalizedChildren = React.Children.toArray(children)
   const { labelWidth, labelSuffix, itemMaginBottom, hideRequiredSymbol } = useGetFormConf()
+
+  // 拿组件title作为默认标签值
+  const defaultLabel = useGetDefaultLabelByType(type)
   const {
-    label = '',
+    label = defaultLabel,
     helpText,
     labelAlign,
     hiddenLabel,
@@ -26,7 +30,6 @@ const FormItemWithConf: FC<PropsType> = ({ children, basicProps }: PropsType) =>
       labelAlign={labelAlign}
       style={{ marginBottom: getStyleByProp(itemMaginBottom) }}
       label={
-        label &&
         !hiddenLabel && (
           <div style={{ width: getStyleByProp(showLabelWidth) }}>
             {helpText && (
