@@ -1,12 +1,13 @@
 import React from 'react'
 import InputConf from './InnerInput'
 import TitleConf from './InnerTitle'
+import TextAreaConf from './InnerTextArea'
 import { ComponentConfType, ComponentType, GroupIds, ComponentPropsType } from './type'
 
 export * from './type'
 
 // 全部的组件配置的列表
-const componentConfs: ComponentConfType[] = [InputConf, TitleConf]
+const componentConfs: ComponentConfType[] = [InputConf, TitleConf, TextAreaConf]
 
 // 组件分组
 export const componentConfGroup = [
@@ -18,7 +19,7 @@ export const componentConfGroup = [
   {
     groupId: GroupIds.BASIC,
     groupName: '基础组件',
-    componentConfs: [InputConf],
+    componentConfs: [InputConf, TextAreaConf],
   },
 ]
 export function getComponentConfByType(

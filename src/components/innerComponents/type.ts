@@ -17,6 +17,7 @@ export type ComponentConfType = {
 
 export enum ComponentType {
   INPUT = 'innerInput',
+  TEXT_AREA = 'innerTextArea',
   TITLE = 'innerTitle',
 }
 
