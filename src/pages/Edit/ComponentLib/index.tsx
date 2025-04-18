@@ -29,7 +29,7 @@ function getComponentIconShowByConf(config: ComponentConfType, dispatch: AppDisp
       onDragStart={e => handleDragStart(e)}
     >
       <i className={`iconfont ${iconClass} ${styles.icon}`}></i>
-      <div>{title}</div>
+      <div className={styles.text}>{title}</div>
     </div>
   )
 }

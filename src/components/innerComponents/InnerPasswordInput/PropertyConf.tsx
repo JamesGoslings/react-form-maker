@@ -7,9 +7,12 @@ const InnerPasswordInputPropertyConf: FC<PasswordInputPropsType> = (
   props: PasswordInputPropsType
 ) => {
   const handleChangeProp = useHandleChangeComponentProp<PasswordInputPropsType>()
-  const { placeholder, showCount } = { ...passwordInputDefaultProps, ...props }
+  const { placeholder, showCount, allowClear } = { ...passwordInputDefaultProps, ...props }
   return (
     <Form colon={false} layout="vertical" size="small">
+      <Form.Item label="是否带清除图标">
+        <Switch defaultChecked={allowClear} onChange={val => handleChangeProp('allowClear', val)} />
+      </Form.Item>
       <Form.Item label="占位提示语">
         <Input
           defaultValue={placeholder}
@@ -18,10 +21,7 @@ const InnerPasswordInputPropertyConf: FC<PasswordInputPropsType> = (
         />
       </Form.Item>
       <Form.Item label="是否显示字数">
-        <Switch
-          defaultChecked={showCount}
-          onChange={checked => handleChangeProp('showCount', checked)}
-        />
+        <Switch defaultChecked={showCount} onChange={val => handleChangeProp('showCount', val)} />
       </Form.Item>
     </Form>
   )
