@@ -16,9 +16,10 @@ export type ComponentConfType = {
 }
 
 export enum ComponentType {
+  TITLE = 'innerTitle',
   INPUT = 'innerInput',
   TEXT_AREA = 'innerTextArea',
-  TITLE = 'innerTitle',
+  PASSWORD = 'innerPassword',
 }
 
 export enum GroupIds {
