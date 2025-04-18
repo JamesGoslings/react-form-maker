@@ -5,11 +5,11 @@ import { setSelectedComponentBasicConf } from '@/store/componentsReducer'
 import UnitStyleSelect from '@/components/common/UnitStyleSelect'
 import { StylePropType, Units } from '@/components/common/UnitStyleSelect'
 import { useDispatch } from 'react-redux'
-import { defaultBasicConf, BasicConfType } from './type'
+import { defaultBasicConf, BasicConfType, BasicConfPropsType } from './type'
 import HideAndShowSwitch from '@/components/common/HideAndShowSwitch'
 import styles from './BasicConfig.module.scss'
 
-const BasicConfig: FC<BasicConfType | {}> = function (props: BasicConfType | {}) {
+const BasicConfig: FC<BasicConfPropsType> = function (props: BasicConfPropsType) {
   const {
     label,
     helpText,
@@ -17,6 +17,7 @@ const BasicConfig: FC<BasicConfType | {}> = function (props: BasicConfType | {})
     labelAlign,
     hiddenLabel = false,
     labelWidth,
+    defaultLabel,
   } = {
     ...defaultBasicConf,
     ...props,
@@ -34,6 +35,11 @@ const BasicConfig: FC<BasicConfType | {}> = function (props: BasicConfType | {})
     value: ValueTypeForKey<BasicConfType, K>
   ) {
     dispatch(setSelectedComponentBasicConf({ key, value }))
+  }
+
+  // 如果没有label值，则更新状态为默认值
+  if (!label) {
+    handleChangeProp('label', defaultLabel)
   }
 
   function handleChangeLabelWidth(prop: StylePropType) {

@@ -10,6 +10,10 @@ export interface BasicConfType {
   labelWidth?: StylePropType
 }
 
+export type BasicConfPropsType = Partial<BasicConfType> & {
+  defaultLabel: string
+}
+
 export const defaultBasicConf: DeepReadonly<BasicConfType> = {
   label: '',
   componentWidth: '100%',
