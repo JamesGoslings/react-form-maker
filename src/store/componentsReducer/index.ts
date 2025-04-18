@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ComponentPropsType, ComponentType } from '@/components/innerComponents'
+import {
+  ComponentPropsType,
+  ComponentType,
+  getComponentConfByType,
+  getGroupIdByComponentType,
+  GroupIds,
+} from '@/components/innerComponents'
 import { BasicConfType, defaultBasicConf } from '@/pages/Edit/ComponentConfig'
 import { ValueTypeForKey } from '@/utils'
 
@@ -43,6 +49,15 @@ export const componentsSlice = createSlice({
     // 给指定下标添加一个组件info
     addComponent(state: ComponentsStateType, action: PayloadAction<ComponentActionParams>) {
       const { index, ComponentInfo } = action.payload
+      const { type } = ComponentInfo
+      // 添加默认label
+      const groupId = getGroupIdByComponentType(type)
+      if (groupId === GroupIds.BASIC) {
+        if (!ComponentInfo.basicProps) {
+          ComponentInfo.basicProps = { ...defaultBasicConf }
+        }
+        ComponentInfo.basicProps.label = getComponentConfByType(type)?.title ?? ''
+      }
       state.componentList.splice(index, 0, ComponentInfo)
     },
     // 通过索引交换两个组件的位置

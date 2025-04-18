@@ -26,14 +26,13 @@ const ComponentConfig: FC = function () {
   if (!selectedComponentConf) {
     return <div>暂无配置信息</div>
   }
-  const { title } = selectedComponentConf
   const groupId = getGroupIdByComponentType(type)
   return (
     <div>
       {groupId === GroupIds.BASIC && (
         <>
           <div className={styles['config-title']}>基础配置</div>
-          <BasicConfig {...basicProps} defaultLabel={title} />
+          <BasicConfig {...basicProps} />
         </>
       )}
       <div className={styles['config-title']}>属性配置</div>

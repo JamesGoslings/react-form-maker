@@ -17,7 +17,6 @@ const BasicConfig: FC<BasicConfPropsType> = function (props: BasicConfPropsType)
     labelAlign,
     hiddenLabel = false,
     labelWidth,
-    defaultLabel,
   } = {
     ...defaultBasicConf,
     ...props,
@@ -35,11 +34,6 @@ const BasicConfig: FC<BasicConfPropsType> = function (props: BasicConfPropsType)
     value: ValueTypeForKey<BasicConfType, K>
   ) {
     dispatch(setSelectedComponentBasicConf({ key, value }))
-  }
-
-  // 如果没有label值，则更新状态为默认值
-  if (!label) {
-    handleChangeProp('label', defaultLabel)
   }
 
   function handleChangeLabelWidth(prop: StylePropType) {

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { BasicConfType } from '../ComponentConfig'
 import { ComponentType } from '@/components/innerComponents'
 import { Form, Popover } from 'antd'
-import { useGetFormConf, useGetDefaultLabelByType } from '@/hooks'
+import { useGetFormConf } from '@/hooks'
 import { getStyleByProp } from '@/utils'
 
 type PropsType = {
@@ -16,9 +16,8 @@ const FormItemWithConf: FC<PropsType> = ({ children, basicProps, type }: PropsTy
   const { labelWidth, labelSuffix, itemMaginBottom, hideRequiredSymbol } = useGetFormConf()
 
   // 拿组件title作为默认标签值
-  const defaultLabel = useGetDefaultLabelByType(type)
   const {
-    label = defaultLabel,
+    label,
     helpText,
     labelAlign,
     hiddenLabel,
